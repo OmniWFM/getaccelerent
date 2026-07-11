@@ -1,28 +1,49 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
+import NetworkHero from "@/components/NetworkHero";
+import TiltCard from "@/components/TiltCard";
+
+const INDUSTRIES = [
+  "Insurance",
+  "Banking",
+  "Construction",
+  "Marketing",
+  "Technology",
+  "Real Estate",
+  "Logistics",
+  "Legal",
+  "Healthcare",
+  "Manufacturing",
+  "Accounting",
+  "Energy",
+];
 
 export default function Home() {
   return (
     <>
-      {/* HERO */}
+      {/* HERO — interactive 3D node network */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-navy hero-grain">
-        <div className="absolute inset-0">
-          <div className="absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-gold/10 blur-3xl" />
-          <div className="absolute -left-40 bottom-0 h-[400px] w-[400px] rounded-full bg-navy-light/40 blur-3xl" />
-        </div>
+        {/* rotating conic aura */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full aura opacity-60" />
+        {/* the 3D canvas */}
+        <NetworkHero />
+        {/* soft vignette + gradient so text stays readable over the canvas */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent" />
+
         <div className="relative mx-auto w-full max-w-7xl px-6 pt-32">
           <p className="mb-6 animate-fadeIn text-sm font-semibold uppercase tracking-[0.3em] text-gold">
             The Business Development Platform
           </p>
           <h1 className="max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl">
             Relationships that
-            <span className="block text-gold">drive growth.</span>
+            <span className="block gradient-gold">drive growth.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
             We select the right companies in each market to create a focused
-            platform where decision-makers build meaningful relationships — with
-            category exclusivity and none of the competitive clutter.
+            platform where decision-makers build meaningful relationships —
+            with category exclusivity and none of the competitive clutter.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
@@ -33,16 +54,35 @@ export default function Home() {
             </Link>
             <Link
               href="/model"
-              className="rounded-full border border-white/30 px-8 py-4 font-semibold text-white transition-colors hover:border-gold hover:text-gold"
+              className="rounded-full border border-white/30 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:border-gold hover:text-gold"
             >
               How it works
             </Link>
           </div>
+          <p className="mt-16 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-white/40">
+            <span className="inline-block h-8 w-px animate-pulse bg-gold/60" />
+            Drag your cursor across the network
+          </p>
+        </div>
+      </section>
+
+      {/* INDUSTRY MARQUEE */}
+      <section className="overflow-hidden border-y border-navy/10 bg-navy-dark py-6">
+        <div className="marquee gap-12">
+          {[...INDUSTRIES, ...INDUSTRIES].map((name, i) => (
+            <span
+              key={i}
+              className="whitespace-nowrap text-lg font-medium uppercase tracking-widest text-white/40"
+            >
+              {name}
+              <span className="ml-12 text-gold">◆</span>
+            </span>
+          ))}
         </div>
       </section>
 
       {/* STATS */}
-      <section className="bg-paper py-24">
+      <section className="relative bg-paper py-24 grid-lines">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {[
@@ -52,14 +92,14 @@ export default function Home() {
               { n: <Counter end={1} />, l: "Partner per industry" },
             ].map((s, i) => (
               <Reveal key={i} delay={i * 100}>
-                <div className="text-center">
+                <TiltCard className="rounded-2xl border border-navy/10 bg-white/70 p-6 text-center shadow-sm backdrop-blur">
                   <div className="text-4xl font-semibold text-navy md:text-5xl">
                     {s.n}
                   </div>
                   <p className="mt-3 text-sm uppercase tracking-wider text-navy/60">
                     {s.l}
                   </p>
-                </div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
@@ -67,7 +107,7 @@ export default function Home() {
       </section>
 
       {/* MODEL */}
-      <section className="bg-white py-28">
+      <section className="scene bg-white py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-16 md:grid-cols-2 md:items-center">
             <Reveal>
@@ -100,9 +140,9 @@ export default function Home() {
                   { t: "Like-minded leaders", d: "Engage directly with CEOs, not business-card swaps." },
                   { t: "Support & accountability", d: "A strategy, the tools, and the structure to measure results." },
                 ].map((c) => (
-                  <div
+                  <TiltCard
                     key={c.t}
-                    className="group rounded-2xl border border-navy/10 bg-paper p-6 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-xl hover:shadow-navy/5"
+                    className="group rounded-2xl border border-navy/10 bg-paper p-6 hover:border-gold hover:shadow-xl hover:shadow-navy/5"
                   >
                     <h3 className="text-lg font-semibold text-navy group-hover:text-gold">
                       {c.t}
@@ -110,7 +150,7 @@ export default function Home() {
                     <p className="mt-2 text-sm leading-relaxed text-navy/60">
                       {c.d}
                     </p>
-                  </div>
+                  </TiltCard>
                 ))}
               </div>
             </Reveal>
@@ -119,14 +159,15 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy py-28">
-        <div className="mx-auto max-w-4xl px-6 text-center">
+      <section className="relative overflow-hidden bg-navy py-28">
+        <div className="pointer-events-none absolute -right-40 -top-20 h-[500px] w-[500px] rounded-full bg-gold/10 blur-3xl float" />
+        <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>
             <h2 className="text-4xl font-semibold leading-tight text-white md:text-5xl">
               Ready to own your industry in your market?
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-              Category exclusivity is limited to one partner per segment. Let's
+              Category exclusivity is limited to one partner per segment. Let&apos;s
               talk about whether yours is still open.
             </p>
             <Link
