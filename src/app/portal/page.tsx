@@ -1,68 +1,74 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
+import NetworkHero from "@/components/NetworkHero";
 
 export const metadata: Metadata = {
   title: "Partner Portal",
-  description: "Sign in to the Accelerent Partner Portal to access your relationships, events, and results.",
+  description: "Sign in to the Accelerent Partner Portal.",
   robots: { index: false, follow: false },
 };
 
+const inputCls =
+  "w-full border border-hair bg-[rgba(13,21,40,.4)] px-4 py-3 text-paper placeholder:text-paper/30 outline-none transition-colors focus:border-gold";
+
 export default function Portal() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy hero-grain px-6 py-32">
-      <div className="absolute -right-40 top-10 h-[500px] w-[500px] rounded-full bg-gold/10 blur-3xl" />
-      <div className="absolute -left-40 bottom-0 h-[400px] w-[400px] rounded-full bg-navy-light/40 blur-3xl" />
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy px-6 py-24">
+      <NetworkHero />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 40%, rgba(13,21,40,0) 0%, rgba(13,21,40,.85) 75%)",
+        }}
+      />
 
-      <div className="relative w-full max-w-md">
-        <div className="mb-8 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-white">
-            <span className="inline-block h-7 w-7 rounded-sm bg-gold" />
-            <span className="text-2xl font-semibold">
-              Accel<span className="text-gold">erent</span>
-            </span>
+      <Link
+        href="/"
+        className="absolute left-6 top-6 z-10 text-paper/55 transition-colors hover:text-gold"
+        style={{ fontSize: "13px" }}
+      >
+        &larr; Back to site
+      </Link>
+
+      <div className="relative z-10 w-[420px] max-w-[calc(100vw-48px)] border border-[rgba(246,244,239,.14)] bg-[rgba(246,244,239,.06)] p-12 backdrop-blur-xl">
+        <div className="flex justify-center">
+          <Wordmark variant="light" />
+        </div>
+        <p
+          className="mt-4 text-center uppercase text-gold"
+          style={{ fontSize: "11px", letterSpacing: "0.3em" }}
+        >
+          PARTNER PORTAL
+        </p>
+
+        <form className="mt-10 space-y-5">
+          <div>
+            <label className="mb-2 block uppercase text-paper/60" style={{ fontSize: "11px", letterSpacing: "0.1em" }}>
+              Email
+            </label>
+            <input type="email" placeholder="you@company.com" className={inputCls} />
           </div>
-          <h1 className="text-2xl font-semibold text-white">Partner Portal</h1>
-          <p className="mt-2 text-sm text-white/60">
-            Sign in to access your relationships, events, and results.
-          </p>
-        </div>
+          <div>
+            <label className="mb-2 block uppercase text-paper/60" style={{ fontSize: "11px", letterSpacing: "0.1em" }}>
+              Password
+            </label>
+            <input type="password" placeholder="••••••••" className={inputCls} />
+          </div>
+          <button type="button" className="btn-gold w-full justify-center">
+            Sign In
+          </button>
+        </form>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md">
-          <form className="space-y-5">
-            <div>
-              <label className="mb-2 block text-sm font-medium text-white/80">Email</label>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none focus:border-gold"
-              />
-            </div>
-            <div>
-              <div className="mb-2 flex items-center justify-between">
-                <label className="block text-sm font-medium text-white/80">Password</label>
-                <a href="#" className="text-xs text-gold hover:underline">Forgot?</a>
-              </div>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none focus:border-gold"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-full bg-gold py-3 font-semibold text-navy transition-transform hover:scale-[1.02]"
-            >
-              Sign in
-            </button>
-          </form>
-        </div>
-
-        <p className="mt-6 text-center text-sm text-white/50">
-          Not a partner yet?{" "}
-          <Link href="/contact" className="text-gold hover:underline">
+        <div className="mt-6 flex items-center justify-between" style={{ fontSize: "13px" }}>
+          <button type="button" className="text-paper/55 transition-colors hover:text-gold">
+            Forgot password?
+          </button>
+          <Link href="/contact" className="text-paper/55 transition-colors hover:text-gold">
             Request access
           </Link>
-        </p>
+        </div>
       </div>
     </section>
   );
