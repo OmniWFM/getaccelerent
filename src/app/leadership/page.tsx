@@ -1,86 +1,112 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import TiltCard from "@/components/TiltCard";
 
 export const metadata: Metadata = {
   title: "Leadership",
   description:
-    "Accelerent's leadership team brings experience from Big Four accounting, investment banking, logistics, commercial real estate, national retail, and professional sports.",
+    "Accelerent's leadership team brings experience across Big Four accounting, investment banking, logistics, commercial real estate, national retail, and professional sports.",
 };
 
-const sectors = [
-  "Big Four Accounting & Consulting",
-  "Investment Banking",
-  "Logistics",
-  "Commercial Real Estate",
-  "National Retail",
-  "Professional Sports Sales & Marketing",
+const team = [
+  {
+    initials: "AB",
+    title: "Chief Executive Officer",
+    bio: "Big Four public accounting and consulting background guiding platform strategy.",
+  },
+  {
+    initials: "CD",
+    title: "President",
+    bio: "Investment banking veteran overseeing partner growth and market operations.",
+  },
+  {
+    initials: "EF",
+    title: "Chief Financial Officer",
+    bio: "Former Big Four finance leader stewarding the company's financial discipline.",
+  },
+  {
+    initials: "GH",
+    title: "EVP Market Development",
+    bio: "Logistics and national retail experience opening and scaling new markets.",
+  },
+  {
+    initials: "IJ",
+    title: "EVP Partner Success",
+    bio: "Professional sports sales and marketing background driving partner outcomes.",
+  },
+  {
+    initials: "KL",
+    title: "Market President",
+    bio: "Commercial real estate leader running a local platform end to end.",
+  },
 ];
-
-const firms = ["Arthur Andersen", "PricewaterhouseCoopers", "FedEx", "Merrill Lynch"];
-
-function initials(seed: number) {
-  const pairs = ["AM", "JR", "KL", "TS", "DW", "PH"];
-  return pairs[seed % pairs.length];
-}
 
 export default function Leadership() {
   return (
     <>
-      <PageHero
-        eyebrow="Leadership"
-        title="Experience across every table."
-        subtitle="Our leadership team brings a diverse range of experience — enabling our executives to understand the unique challenges across industries and help clients achieve their objectives."
-      />
-
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <Reveal>
-            <p className="text-xl leading-relaxed text-navy/80">
-              Our leadership team spans Big Four public accounting and consulting,
-              investment banking, logistics, commercial real estate, national
-              retail, and professional sports sales and marketing. Team members
-              have held roles with firms such as Arthur Andersen,
-              PricewaterhouseCoopers, FedEx, and Merrill Lynch.
-            </p>
-          </Reveal>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-navy pt-52 pb-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="eyebrow text-gold">LEADERSHIP</p>
+          <h1 className="font-display mt-6 text-paper" style={{ fontSize: "clamp(48px,7vw,84px)", lineHeight: 1.02 }}>
+            Experience across every discipline.
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(246,244,239,.7)" }}>
+            Our leadership team brings a diverse range of experience spanning Big Four public
+            accounting and consulting, investment banking, logistics, commercial real estate,
+            national retail, and professional sports sales and marketing.
+          </p>
         </div>
       </section>
 
-      <section className="bg-paper py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* Paper section */}
+      <section className="bg-paper py-28">
+        <div className="mx-auto max-w-6xl px-6">
           <Reveal>
-            <p className="gold-underline mb-10 inline-block text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              Backgrounds that shape our approach
+            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-navy/70">
+              Team members have held roles with firms such as Arthur Andersen,
+              PricewaterhouseCoopers, FedEx, and Merrill Lynch. This breadth of experience enables
+              our executives to understand the unique challenges across industries — and to be
+              highly effective in helping our Partners achieve their business objectives.
             </p>
           </Reveal>
-          <div className="grid gap-6 md:grid-cols-3">
-            {sectors.map((s, i) => (
-              <Reveal key={s} delay={i * 80}>
-                <div className="flex h-full items-center gap-4 rounded-2xl border border-navy/10 bg-white p-6">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-navy text-sm font-semibold text-gold">
-                    {initials(i)}
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map((m, i) => (
+              <Reveal key={m.initials} delay={i * 70}>
+                <TiltCard>
+                  <div className="h-full border border-hair bg-white">
+                    <div
+                      className="flex items-center justify-center"
+                      style={{
+                        aspectRatio: "4 / 3.4",
+                        background: "linear-gradient(160deg,#131C31,#2A3654)",
+                      }}
+                    >
+                      <span className="font-display text-gold" style={{ fontSize: "42px" }}>
+                        {m.initials}
+                      </span>
+                    </div>
+                    <div className="p-7">
+                      <h3 className="font-display text-navy" style={{ fontSize: "25px" }}>
+                        Executive Name
+                      </h3>
+                      <p className="mt-1 uppercase text-gold" style={{ fontSize: "12px", letterSpacing: "0.1em" }}>
+                        {m.title}
+                      </p>
+                      <p className="mt-4 text-navy/60" style={{ fontSize: "14px", lineHeight: 1.6 }}>
+                        {m.bio}
+                      </p>
+                    </div>
                   </div>
-                  <p className="font-medium text-navy">{s}</p>
-                </div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="bg-navy py-20">
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <Reveal>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              Alumni of
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-              {firms.map((f) => (
-                <span key={f} className="text-lg font-medium text-white/70">{f}</span>
-              ))}
-            </div>
-          </Reveal>
+          <p className="mt-12 italic text-navy/45" style={{ fontSize: "13px" }}>
+            Headshots, names, and bios to be replaced with the current Accelerent leadership team.
+          </p>
         </div>
       </section>
     </>
