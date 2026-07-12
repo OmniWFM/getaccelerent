@@ -1,9 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -11,9 +9,11 @@ const config: Config = {
         band: "#EEEBE2",
         navy: {
           DEFAULT: "#0D1528",
+          deep: "#131C31",
           footer: "#0A1122",
           cta: "#131C31",
         },
+        "navy-deep": "#131C31",
         ink: "#131C31",
         body: "#38415A",
         muted: "#5C6577",
@@ -27,8 +27,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-cormorant)", "Georgia", "serif"],
-        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-body)", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
       borderColor: {
         hair: "rgba(19,28,49,.1)",
