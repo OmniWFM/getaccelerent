@@ -1,83 +1,61 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Find out whether your industry seat is still open. Start a conversation with the Accelerent team.",
+    "Tell us about your business and your market. We'll confirm whether your industry segment is still available.",
 };
 
 export default function Contact() {
   return (
     <>
-      <PageHero
-        eyebrow="Contact"
-        title="Let's talk about your market."
-        subtitle="Category exclusivity is limited to one partner per segment. Tell us about your business and we'll let you know if your seat is still open."
-      />
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-navy pt-52 pb-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="eyebrow text-gold">CONTACT</p>
+          <h1 className="font-display mt-6 text-paper" style={{ fontSize: "clamp(48px,7vw,84px)", lineHeight: 1.02 }}>
+            Start the conversation.
+          </h1>
+        </div>
+      </section>
 
-      <section className="bg-white py-24">
-        <div className="mx-auto grid max-w-6xl gap-16 px-6 md:grid-cols-2">
-          <Reveal>
-            <form className="space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-navy">First name</label>
-                  <input type="text" className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-navy">Last name</label>
-                  <input type="text" className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-                </div>
-              </div>
+      {/* Paper split */}
+      <section className="bg-paper py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-16 md:grid-cols-2">
+            <Reveal>
               <div>
-                <label className="mb-2 block text-sm font-medium text-navy">Company</label>
-                <input type="text" className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-navy">Work email</label>
-                <input type="email" className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-navy">Industry &amp; market</label>
-                <input type="text" placeholder="e.g. Commercial Insurance — Dallas" className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-navy">How can we help?</label>
-                <textarea rows={4} className="w-full rounded-lg border border-navy/15 px-4 py-3 outline-none focus:border-gold" />
-              </div>
-              <button
-                type="submit"
-                className="rounded-full bg-navy px-8 py-4 font-semibold text-white transition-colors hover:bg-gold hover:text-navy"
-              >
-                Send inquiry
-              </button>
-            </form>
-          </Reveal>
+                <h2 className="font-display text-navy" style={{ fontSize: "clamp(28px,3.2vw,40px)", lineHeight: 1.1 }}>
+                  Tell us about your business and your market.
+                </h2>
+                <p className="mt-6 text-lg leading-relaxed text-navy/70">
+                  We&apos;ll confirm whether your industry segment is still available and walk you
+                  through how the platform works in your market.
+                </p>
 
-          <Reveal delay={150}>
-            <div className="rounded-3xl bg-navy p-10 text-white">
-              <h3 className="text-2xl font-semibold">Prefer to reach out directly?</h3>
-              <p className="mt-4 text-white/70">
-                Our team responds to every partner inquiry personally.
-              </p>
-              <div className="mt-8 space-y-6">
-                <div>
-                  <p className="text-sm uppercase tracking-wider text-gold">Email</p>
-                  <p className="mt-1 text-lg">partners@getaccelerent.com</p>
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-wider text-gold">Phone</p>
-                  <p className="mt-1 text-lg">(410) 555-0170</p>
-                </div>
-                <div>
-                  <p className="text-sm uppercase tracking-wider text-gold">Existing partner?</p>
-                  <p className="mt-1 text-lg">Sign in through the Partner Portal.</p>
+                <div className="mt-12">
+                  <div className="border-t border-hair py-6">
+                    <p className="uppercase text-gold" style={{ fontSize: "11px", letterSpacing: "0.14em" }}>
+                      GENERAL INQUIRIES
+                    </p>
+                    <p className="mt-2 text-navy">info@accelerent.com</p>
+                  </div>
+                  <div className="border-t border-hair py-6">
+                    <p className="uppercase text-gold" style={{ fontSize: "11px", letterSpacing: "0.14em" }}>
+                      PARTNER SUPPORT
+                    </p>
+                    <p className="mt-2 text-navy">Through your market team or the Partner Portal</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <ContactForm />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>
