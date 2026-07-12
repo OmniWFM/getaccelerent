@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import BoardroomScene from "@/components/art/BoardroomScene";
 
 export const metadata: Metadata = {
   title: "Model",
@@ -31,17 +32,24 @@ export default function Model() {
       />
 
       <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <Reveal>
-            <p className="text-xl leading-relaxed text-navy/80">
-              With category exclusivity, Partners can tell their story and form
-              meaningful connections — without competitive clutter. At maturity,
-              each market includes one exclusive partner across 50–60 distinct
-              industry segments, ensuring nearly every relevant industry is
-              represented and giving Partners a steady flow of new business
-              opportunities.
-            </p>
-          </Reveal>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-16 md:grid-cols-2 md:items-center">
+            <Reveal>
+              <p className="text-xl leading-relaxed text-navy/80">
+                With category exclusivity, Partners can tell their story and form
+                meaningful connections — without competitive clutter. At maturity,
+                each market includes one exclusive partner across 50–60 distinct
+                industry segments, ensuring nearly every relevant industry is
+                represented and giving Partners a steady flow of new business
+                opportunities.
+              </p>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
+                <BoardroomScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
