@@ -1,7 +1,23 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-archivo",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://getaccelerent.com"),
@@ -10,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Accelerent",
   },
   description:
-    "Accelerent is a business development platform built on category exclusivity. We connect decision-makers and their sales teams to build relationships that drive growth.",
+    "Accelerent is a business development platform built on category exclusivity. One exclusive partner per industry, in every market. We bring decision-makers and their sales teams together to build the relationships that generate new business.",
   keywords: [
     "business development platform",
     "category exclusivity",
@@ -22,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Accelerent — The Business Development Platform",
     description:
-      "One partner per industry. A focused platform where decision-makers build relationships that drive growth.",
+      "One exclusive partner per industry, in every market. A focused platform where decision-makers build the relationships that drive growth.",
     url: "https://getaccelerent.com",
     siteName: "Accelerent",
     type: "website",
@@ -31,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Accelerent — The Business Development Platform",
     description:
-      "One partner per industry. A focused platform where decision-makers build relationships that drive growth.",
+      "One exclusive partner per industry, in every market. Relationships that drive growth.",
   },
   robots: { index: true, follow: true },
 };
@@ -48,11 +64,11 @@ export default function RootLayout({
     url: "https://getaccelerent.com",
     description:
       "A business development platform built on category exclusivity, connecting decision-makers who drive growth.",
-    slogan: "One partner per industry. Every relationship that matters.",
+    slogan: "One exclusive partner per industry, in every market we serve.",
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorant.variable} ${archivo.variable}`}>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"
