@@ -3,109 +3,150 @@ import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
 import NetworkHero from "@/components/NetworkHero";
 import TiltCard from "@/components/TiltCard";
-import BoardroomScene from "@/components/art/BoardroomScene";
-import PartnershipScene from "@/components/art/PartnershipScene";
-import BoardTableScene from "@/components/art/BoardTableScene";
 
-const INDUSTRIES = [
-  "Insurance",
-  "Banking",
-  "Construction",
-  "Marketing",
-  "Technology",
-  "Real Estate",
-  "Logistics",
-  "Legal",
-  "Healthcare",
-  "Manufacturing",
-  "Accounting",
-  "Energy",
+const CARDS = [
+  {
+    n: "01",
+    t: "Category Exclusivity",
+    d: "One company per industry. Your competitors are not in the room — your story stands alone in front of every decision-maker on the platform.",
+  },
+  {
+    n: "02",
+    t: "Decision-Maker Access",
+    d: "We bring decision-makers and their sales teams together with other decision-makers and their teams — no gatekeepers, no cold outreach.",
+  },
+  {
+    n: "03",
+    t: "Support & Accountability",
+    d: "We develop a strategy with you, prepare your team before every environment, and give you the structure and tools to measure results.",
+  },
+];
+
+const WONDERINGS = [
+  "Have I established all of the valuable relationships needed to grow my business?",
+  "Why does my team have trouble accessing the decision-makers we must engage to increase sales?",
+  "Do I even know how successful my sales and marketing efforts are?",
 ];
 
 export default function Home() {
   return (
     <>
-      {/* HERO — interactive 3D node network over a committed boardroom scene */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-navy hero-grain">
-        {/* committed SVG boardroom scene as the base layer (never expires) */}
-        <div className="pointer-events-none absolute inset-0 opacity-40">
-          <BoardroomScene className="h-full w-full" />
-        </div>
-        {/* rotating conic aura */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full aura opacity-60" />
-        {/* the 3D canvas */}
+      {/* HERO */}
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-navy">
         <NetworkHero />
-        {/* soft vignette + gradient so text stays readable over the canvas */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(13,21,40,0.75)_100%)]" />
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 pt-32">
-          <p className="mb-6 animate-fadeIn text-sm font-semibold uppercase tracking-[0.3em] text-gold">
-            The Business Development Platform
-          </p>
-          <h1 className="max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl">
-            Relationships that
-            <span className="block gradient-gold">drive growth.</span>
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
-            We select the right companies in each market to create a focused
-            platform where decision-makers build meaningful relationships —
-            with category exclusivity and none of the competitive clutter.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/contact"
-              className="rounded-full bg-gold px-8 py-4 font-semibold text-navy transition-transform hover:scale-105"
-            >
-              Become a Partner
-            </Link>
-            <Link
-              href="/model"
-              className="rounded-full border border-white/30 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-colors hover:border-gold hover:text-gold"
-            >
-              How it works
-            </Link>
-          </div>
-          <p className="mt-16 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-white/40">
-            <span className="inline-block h-8 w-px animate-pulse bg-gold/60" />
-            Drag your cursor across the network
-          </p>
+        <div className="relative mx-auto w-full max-w-7xl px-6 pb-28 pt-52">
+          <Reveal>
+            <p className="eyebrow text-gold">The Business Development Platform</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <h1 className="mt-6 max-w-4xl font-display font-normal leading-[1.06] text-paper" style={{ fontSize: "clamp(48px, 9vw, 108px)" }}>
+              Relationships that{" "}
+              <em className="italic text-gold">drive growth.</em>
+            </h1>
+          </Reveal>
+          <Reveal delay={240}>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[rgba(246,244,239,.7)]">
+              One exclusive partner per industry, in every market. Accelerent brings
+              decision-makers and their sales teams together to build the
+              relationships that generate new business — without competitive clutter.
+            </p>
+          </Reveal>
+          <Reveal delay={360}>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/model" className="btn-gold">
+                Explore the Model
+              </Link>
+              <Link href="/contact" className="btn-outline">
+                Become a Partner
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-[rgba(246,244,239,.4)]">
+          Scroll
         </div>
       </section>
 
-      {/* INDUSTRY MARQUEE */}
-      <section className="overflow-hidden border-y border-navy/10 bg-navy-dark py-6">
-        <div className="marquee gap-12">
-          {[...INDUSTRIES, ...INDUSTRIES].map((name, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap text-lg font-medium uppercase tracking-widest text-white/40"
-            >
-              {name}
-              <span className="ml-12 text-gold">◆</span>
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="relative bg-paper py-24 grid-lines">
+      {/* STATS BAND */}
+      <section className="border-b border-hair bg-paper py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-y-12 md:grid-cols-4 md:gap-y-0">
             {[
-              { n: <Counter end={275} suffix="+" />, l: "Clients & counting" },
-              { n: <Counter end={85} suffix="%" />, l: "Partner retention" },
-              { n: <><Counter end={50} />–<Counter end={60} /></>, l: "Industry segments" },
-              { n: <Counter end={1} />, l: "Partner per industry" },
+              { n: <Counter end={275} suffix="+" />, l: "Partner Companies" },
+              { n: <Counter end={85} suffix="%" />, l: "Partner Retention" },
+              { n: "50–60", l: "Exclusive Industry Segments" },
+              { n: "$10M–$20B", l: "Partner Revenue Range" },
             ].map((s, i) => (
               <Reveal key={i} delay={i * 100}>
-                <TiltCard className="rounded-2xl border border-navy/10 bg-white/70 p-6 text-center shadow-sm backdrop-blur">
-                  <div className="text-4xl font-semibold text-navy md:text-5xl">
+                <div className="border-l border-hair pl-7">
+                  <div className="font-display font-normal leading-none text-ink" style={{ fontSize: "64px" }}>
                     {s.n}
                   </div>
-                  <p className="mt-3 text-sm uppercase tracking-wider text-navy/60">
+                  <p className="mt-4 text-sm uppercase tracking-wider text-ink/60">
                     {s.l}
                   </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* OUR MODEL SPLIT */}
+      <section className="bg-paper py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-16 md:grid-cols-2">
+            <Reveal>
+              <div>
+                <p className="eyebrow text-gold">Our Model</p>
+                <h2 className="mt-6 font-display font-normal leading-[1.1] text-ink" style={{ fontSize: "clamp(32px, 4vw, 52px)" }}>
+                  A focused platform where decision-makers build relationships.
+                </h2>
+              </div>
+            </Reveal>
+            <Reveal delay={150}>
+              <div>
+                <p className="text-lg leading-relaxed text-ink/70">
+                  Our model is simple. We select the right companies in each market to
+                  create a focused platform where decision-makers build relationships
+                  that drive growth.
+                </p>
+                <p className="mt-6 text-lg leading-relaxed text-ink/70">
+                  With category exclusivity, Partners can tell their story and form
+                  meaningful connections — without competitive clutter.
+                </p>
+                <Link
+                  href="/model"
+                  className="mt-8 inline-block border-b-2 border-gold pb-1 font-medium text-ink hover:text-gold"
+                >
+                  How the model works →
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* WHY PARTNERS CHOOSE — BAND */}
+      <section className="bg-band py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal>
+            <p className="eyebrow text-gold">Why Partners Choose Accelerent</p>
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {CARDS.map((c, i) => (
+              <Reveal key={c.n} delay={i * 120}>
+                <TiltCard className="h-full border border-hair bg-paper p-10">
+                  <div className="font-display font-normal text-gold" style={{ fontSize: "26px" }}>
+                    {c.n}
+                  </div>
+                  <h3 className="mt-6 font-display font-normal text-2xl text-ink">
+                    {c.t}
+                  </h3>
+                  <p className="mt-4 leading-relaxed text-ink/60">{c.d}</p>
                 </TiltCard>
               </Reveal>
             ))}
@@ -113,89 +154,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MODEL — with committed partnership scene */}
-      <section className="scene bg-white py-28">
+      {/* TO BE CLEAR — NAVY STATEMENT */}
+      <section className="bg-navy py-32">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <Reveal>
+            <p className="eyebrow text-gold">To Be Clear</p>
+            <h2 className="mt-6 font-display font-normal leading-[1.1] text-paper" style={{ fontSize: "clamp(34px, 5vw, 60px)" }}>
+              We are <em className="italic text-gold">not</em> a networking group.
+            </h2>
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-[rgba(246,244,239,.7)]">
+              We are very different from a Chamber of Commerce, industry association, or
+              leads club. No meet and greets to simply exchange business cards — a
+              structured platform of like-minded CEOs, with a strategy and the
+              accountability to execute it.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* SOUND FAMILIAR — PAPER SPLIT */}
+      <section className="bg-paper py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-16 md:grid-cols-2 md:items-center">
+          <div className="grid gap-16 md:grid-cols-2">
             <Reveal>
               <div>
-                <p className="gold-underline mb-6 inline-block text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                  Our Model
-                </p>
-                <h2 className="text-4xl font-semibold leading-tight text-navy">
-                  Simple by design. Powerful by exclusivity.
+                <p className="eyebrow text-gold">Sound Familiar?</p>
+                <h2 className="mt-6 font-display font-normal leading-[1.1] text-ink" style={{ fontSize: "clamp(32px, 4vw, 50px)" }}>
+                  If you are like most business leaders, you are wondering—
                 </h2>
-                <p className="mt-6 text-lg leading-relaxed text-navy/70">
-                  We select the right companies in each market to create a
-                  focused platform where decision-makers build relationships
-                  that drive growth. With category exclusivity, Partners can
-                  tell their story and form meaningful connections — without
-                  competitive clutter.
-                </p>
-                <Link
-                  href="/model"
-                  className="mt-8 inline-block font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4 hover:text-gold"
-                >
-                  Explore the platform →
-                </Link>
               </div>
             </Reveal>
             <Reveal delay={150}>
-              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
-                <PartnershipScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="mt-20 grid gap-16 md:grid-cols-2 md:items-center">
-            <Reveal className="md:order-2">
-              <div className="grid gap-4">
-                {[
-                  { t: "No competition", d: "One company from each industry — you own your category." },
-                  { t: "Like-minded leaders", d: "Engage directly with CEOs, not business-card swaps." },
-                  { t: "Support & accountability", d: "A strategy, the tools, and the structure to measure results." },
-                ].map((c) => (
-                  <TiltCard
-                    key={c.t}
-                    className="group rounded-2xl border border-navy/10 bg-paper p-6 hover:border-gold hover:shadow-xl hover:shadow-navy/5"
+              <div>
+                {WONDERINGS.map((w, i) => (
+                  <div
+                    key={i}
+                    className={`py-7 font-display font-normal text-ink/90 ${
+                      i > 0 ? "border-t border-hair" : ""
+                    }`}
+                    style={{ fontSize: "25px", lineHeight: 1.3 }}
                   >
-                    <h3 className="text-lg font-semibold text-navy group-hover:text-gold">
-                      {c.t}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy/60">
-                      {c.d}
-                    </p>
-                  </TiltCard>
+                    {w}
+                  </div>
                 ))}
-              </div>
-            </Reveal>
-            <Reveal delay={150} className="md:order-1">
-              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
-                <BoardTableScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+                <Link
+                  href="/about"
+                  className="mt-6 inline-block border-b-2 border-gold pb-1 font-medium text-ink hover:text-gold"
+                >
+                  What we do →
+                </Link>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative overflow-hidden bg-navy py-28">
-        <div className="pointer-events-none absolute -right-40 -top-20 h-[500px] w-[500px] rounded-full bg-gold/10 blur-3xl float" />
-        <div className="relative mx-auto max-w-4xl px-6 text-center">
+      {/* CTA BAND */}
+      <section className="py-28" style={{ backgroundColor: "#131C31" }}>
+        <div className="mx-auto max-w-4xl px-6 text-center">
           <Reveal>
-            <h2 className="text-4xl font-semibold leading-tight text-white md:text-5xl">
-              Ready to own your industry in your market?
+            <h2 className="font-display font-normal leading-[1.1] text-paper" style={{ fontSize: "clamp(32px, 4.5vw, 56px)" }}>
+              Own your industry segment in your market.
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-              Category exclusivity is limited to one partner per segment. Let&apos;s
-              talk about whether yours is still open.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-10 inline-block rounded-full bg-gold px-10 py-4 font-semibold text-navy transition-transform hover:scale-105"
-            >
-              Start the conversation
-            </Link>
+            <div className="mt-10">
+              <Link href="/contact" className="btn-gold">
+                Start the Conversation
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
