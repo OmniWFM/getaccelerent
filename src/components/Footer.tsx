@@ -1,56 +1,56 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 
 const columns = [
+  {
+    title: "Platform",
+    links: [
+      { href: "/model", label: "The Model" },
+      { href: "/partners", label: "Partners" },
+      { href: "/markets", label: "Markets" },
+    ],
+  },
   {
     title: "Company",
     links: [
       { href: "/about", label: "About" },
-      { href: "/model", label: "Model" },
       { href: "/leadership", label: "Leadership" },
-    ],
-  },
-  {
-    title: "Platform",
-    links: [
-      { href: "/partners", label: "Partners" },
-      { href: "/markets", label: "Markets" },
-      { href: "/portal", label: "Partner Portal" },
-    ],
-  },
-  {
-    title: "Connect",
-    links: [
       { href: "/contact", label: "Contact" },
+    ],
+  },
+  {
+    title: "Partners",
+    links: [
+      { href: "/portal", label: "Partner Portal" },
+      { href: "/contact", label: "Become a Partner" },
     ],
   },
 ];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-navy-dark text-white/70">
+    <footer style={{ background: "#0A1122" }} className="text-paper/70">
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2 text-white">
-              <span className="inline-block h-6 w-6 rounded-sm bg-gold" />
-              <span className="text-xl font-semibold">
-                Accel<span className="text-gold">erent</span>
-              </span>
-            </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed">
-              A business development platform built on category exclusivity —
-              connecting decision-makers who drive real growth.
+            <Wordmark variant="light" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/55">
+              The Business Development Platform. One exclusive partner per
+              industry, in every market we serve.
             </p>
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
-                {col.title}
-              </h4>
+              <h4 className="eyebrow mb-5">{col.title}</h4>
               <ul className="space-y-3 text-sm">
                 {col.links.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="transition-colors hover:text-white">
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="text-paper/70 transition-colors hover:text-gold"
+                    >
                       {l.label}
                     </Link>
                   </li>
@@ -59,9 +59,9 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-14 border-t border-white/10 pt-8 text-sm text-white/50 md:flex md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Accelerent. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">One partner per industry. Every relationship that matters.</p>
+        <div className="mt-14 flex flex-col gap-2 border-t border-paper/10 pt-8 text-sm text-paper/50 md:flex-row md:items-center md:justify-between">
+          <p>© {year} Accelerent. All rights reserved.</p>
+          <p>getaccelerent.com</p>
         </div>
       </div>
     </footer>
