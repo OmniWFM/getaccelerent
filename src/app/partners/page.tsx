@@ -1,77 +1,99 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import BoardTableScene from "@/components/art/BoardTableScene";
 
 export const metadata: Metadata = {
   title: "Partners",
   description:
-    "From locally owned businesses to Fortune 100 firms, Accelerent partners span a broad spectrum of industries — with one exclusive partner per segment.",
+    "Accelerent Partners span a broad spectrum — from locally owned businesses to Fortune 100 firms, across every relevant industry.",
 };
 
-const industries = [
-  "Insurance", "Banking", "Construction", "Marketing",
-  "Technology", "Real Estate", "Logistics", "Legal",
-  "Accounting", "Healthcare", "Manufacturing", "Staffing",
+const chips = [
+  "Insurance",
+  "Banking",
+  "Construction",
+  "Marketing",
+  "Technology",
+  "Real Estate",
 ];
 
 export default function Partners() {
   return (
     <>
-      <PageHero
-        eyebrow="Our Partners"
-        title="Middle market to Fortune 100."
-        subtitle="Our partners represent a broad spectrum — from locally owned businesses around $10 million in revenue to Fortune 100 firms approaching $20 billion."
-      />
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-navy pt-52 pb-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="eyebrow text-gold">PARTNERS</p>
+          <h1 className="font-display mt-6 text-paper" style={{ fontSize: "clamp(48px,7vw,84px)", lineHeight: 1.02 }}>
+            A broad spectrum, a single standard.
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(246,244,239,.7)" }}>
+            Although most of our Partners are middle-market companies, they represent a broad
+            spectrum — from locally owned businesses with approximately $10 million in revenue to
+            Fortune 100 firms approaching $20 billion.
+          </p>
+        </div>
+      </section>
 
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* Paper split */}
+      <section className="bg-paper py-28">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-16 md:grid-cols-2 md:items-center">
             <Reveal>
               <div>
-                <p className="text-xl leading-relaxed text-navy/80">
-                  Although most of our Partners are middle-market companies, they
-                  represent both public and private organizations across a wide range
-                  of industries — from insurance, banking, and construction to
-                  marketing, technology, and real estate.
-                </p>
+                <h2 className="font-display text-navy" style={{ fontSize: "clamp(30px,3.4vw,44px)", lineHeight: 1.08 }}>
+                  Public and private. Every relevant industry.
+                </h2>
                 <p className="mt-6 text-lg leading-relaxed text-navy/70">
-                  At maturity, each market includes one exclusive partner across
-                  50–60 distinct industry segments. This breadth ensures that nearly
-                  every relevant industry is represented, giving our Partners
-                  consistent access to meaningful relationships and a steady flow of
-                  new business opportunities.
+                  Our Partners include both public and private companies, representing a wide range
+                  of industries — from insurance, banking, and construction to marketing,
+                  technology, and real estate.
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={150}>
-              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
-                <BoardTableScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+            <Reveal delay={120}>
+              <div className="flex flex-wrap gap-3">
+                {chips.map((c) => (
+                  <span
+                    key={c}
+                    className="border border-hair px-5 py-2.5 uppercase text-navy/80"
+                    style={{ fontSize: "13px", letterSpacing: "0.08em" }}
+                  >
+                    {c}
+                  </span>
+                ))}
+                <span
+                  className="border border-dashed border-hair px-5 py-2.5 uppercase text-navy/40"
+                  style={{ fontSize: "13px", letterSpacing: "0.08em" }}
+                >
+                  + 50 more segments
+                </span>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="bg-paper py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* Band stats */}
+      <section className="bg-band py-24">
+        <div className="mx-auto max-w-6xl px-6">
           <Reveal>
-            <p className="gold-underline mb-10 inline-block text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              A partner in nearly every industry
-            </p>
-          </Reveal>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-            {industries.map((ind, i) => (
-              <Reveal key={ind} delay={i * 60}>
-                <div className="rounded-xl border border-navy/10 bg-white px-5 py-6 text-center font-medium text-navy transition-all hover:-translate-y-1 hover:border-gold hover:text-gold hover:shadow-lg hover:shadow-navy/5">
-                  {ind}
+            <div className="grid gap-y-10 sm:grid-cols-3">
+              {[
+                { n: "275+", l: "Partner Companies" },
+                { n: "85%", l: "Retention Rate" },
+                { n: "1", l: "Partner Per Segment" },
+              ].map((s) => (
+                <div key={s.l} className="border-l border-hair pl-8">
+                  <div className="font-display text-navy" style={{ fontSize: "58px", lineHeight: 1 }}>
+                    {s.n}
+                  </div>
+                  <p className="mt-3 uppercase text-navy/55" style={{ fontSize: "13px", letterSpacing: "0.08em" }}>
+                    {s.l}
+                  </p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mt-8 text-center text-sm text-navy/50">
-            …and 40+ more segments per mature market.
-          </p>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
