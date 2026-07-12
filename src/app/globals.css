@@ -3,8 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --navy: #0d1b3e;
-  --gold: #c9a24b;
+  --paper: #F6F4EF;
+  --band: #EEEBE2;
+  --navy: #0D1528;
+  --footer: #0A1122;
+  --cta: #131C31;
+  --ink: #131C31;
+  --body: #38415A;
+  --muted: #5C6577;
+  --gold: #C9A24B;
+  --hair: rgba(19, 28, 49, 0.1);
+}
+
+* {
+  border-radius: 0 !important;
 }
 
 html {
@@ -12,22 +24,74 @@ html {
 }
 
 body {
-  background: #f7f5f0;
-  color: #0a0f1f;
+  background: var(--paper);
+  color: var(--body);
   -webkit-font-smoothing: antialiased;
 }
 
-/* scroll reveal */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  color: var(--ink);
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Buttons — square, no radius */
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 18px 38px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), box-shadow 0.25s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(201, 162, 75, 0.35);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid currentColor;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 17px 37px;
+  transition: transform 0.25s cubic-bezier(.2,.7,.2,1), color 0.25s ease, border-color 0.25s ease;
+}
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
 }
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Gold underline accent */
 .gold-underline {
   position: relative;
 }
@@ -35,49 +99,56 @@ body {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
-  width: 48px;
-  height: 3px;
+  bottom: -8px;
+  width: 40px;
+  height: 2px;
   background: var(--gold);
 }
 
+/* Nav active underline */
+.nav-active {
+  position: relative;
+  color: var(--gold);
+}
+.nav-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+}
+
+/* Grain / dot texture for dark sections */
 .hero-grain {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
-/* animated gradient text */
-.gradient-gold {
-  background: linear-gradient(100deg, #e0c079, #c9a24b, #f3dfae, #c9a24b);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 6s ease-in-out infinite;
-}
-@keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+/* Fine hairline grid on light sections */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(19, 28, 49, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(19, 28, 49, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
-/* glowing conic aura behind the hero */
-.aura {
-  background: conic-gradient(
-    from 0deg,
-    rgba(201, 162, 75, 0.0),
-    rgba(201, 162, 75, 0.22),
-    rgba(22, 38, 90, 0.0),
-    rgba(201, 162, 75, 0.18),
-    rgba(201, 162, 75, 0.0)
-  );
-  animation: spin 22s linear infinite;
-  filter: blur(40px);
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* Perspective wrapper */
+.scene {
+  perspective: 900px;
 }
 
-/* floating animation for 3D accents */
+/* Radial vignette for dark hero sections */
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(5, 9, 18, 0.85) 100%);
+}
+
+/* Float animation */
 .float {
   animation: float 7s ease-in-out infinite;
 }
@@ -86,33 +157,12 @@ body {
   50% { transform: translateY(-14px); }
 }
 
-/* perspective wrapper for 3D children */
-.scene {
-  perspective: 1000px;
-}
-
-/* marquee for partner-industry strip */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
-}
-.marquee:hover {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* fine navy grid on light sections */
-.grid-lines {
-  background-image:
-    linear-gradient(to right, rgba(13, 27, 62, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 27, 62, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
+/* Italic gold emphasis in headlines */
+.em-gold {
+  font-style: italic;
+  color: var(--gold);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aura, .float, .gradient-gold, .marquee { animation: none; }
+  .float, .reveal { animation: none; transition: none; opacity: 1; transform: none; }
 }
