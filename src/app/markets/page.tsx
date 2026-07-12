@@ -1,64 +1,86 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import TiltCard from "@/components/TiltCard";
 
 export const metadata: Metadata = {
   title: "Markets",
   description:
-    "Accelerent operates focused markets, each maturing toward one exclusive partner across 50–60 industry segments.",
+    "Each Accelerent market is built the same way: one exclusive partner across 50–60 industry segments, with a dedicated local team.",
 };
 
 const markets = [
-  { city: "Baltimore", note: "Founding market" },
-  { city: "Washington, D.C.", note: "Established" },
-  { city: "Philadelphia", note: "Established" },
-  { city: "Dallas", note: "Growing" },
-  { city: "Atlanta", note: "Growing" },
-  { city: "Your city", note: "Expansion opportunity" },
+  { region: "Mid-Atlantic", city: "Baltimore" },
+  { region: "Mid-Atlantic", city: "Washington D.C." },
+  { region: "Midwest", city: "Kansas City" },
+  { region: "Midwest", city: "Indianapolis" },
+  { region: "Midwest", city: "Milwaukee" },
+  { region: "Southwest", city: "Phoenix" },
 ];
 
 export default function Markets() {
   return (
     <>
-      <PageHero
-        eyebrow="Markets"
-        title="Focused markets. Exclusive seats."
-        subtitle="Each market matures toward one exclusive partner across 50–60 distinct industry segments — ensuring nearly every relevant industry is represented."
-      />
-
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {markets.map((m, i) => (
-              <Reveal key={m.city} delay={i * 80}>
-                <div className="group relative overflow-hidden rounded-2xl border border-navy/10 bg-paper p-8 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-xl hover:shadow-navy/5">
-                  <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-gold/10 transition-transform group-hover:scale-150" />
-                  <h3 className="relative text-2xl font-semibold text-navy">{m.city}</h3>
-                  <p className="relative mt-2 text-sm uppercase tracking-wider text-gold">{m.note}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-navy pt-52 pb-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="eyebrow text-gold">MARKETS</p>
+          <h1 className="font-display mt-6 text-paper" style={{ fontSize: "clamp(48px,7vw,84px)", lineHeight: 1.02 }}>
+            A platform in every market we serve.
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed" style={{ color: "rgba(246,244,239,.7)" }}>
+            Each Accelerent market is built the same way: one exclusive partner across 50–60
+            distinct industry segments, with a dedicated local team running the platform.
+          </p>
         </div>
       </section>
 
-      <section className="bg-navy py-24">
+      {/* Paper grid */}
+      <section className="bg-paper py-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {markets.map((m, i) => (
+              <Reveal key={m.city} delay={i * 70}>
+                <TiltCard>
+                  <div className="h-full border border-hair bg-white p-9">
+                    <p className="uppercase text-gold" style={{ fontSize: "11px", letterSpacing: "0.14em" }}>
+                      {m.region}
+                    </p>
+                    <h3 className="font-display mt-3 text-navy" style={{ fontSize: "30px" }}>
+                      {m.city}
+                    </h3>
+                    <div className="mt-5 flex items-center gap-3">
+                      <span
+                        className="inline-block rounded-full bg-gold"
+                        style={{ width: "7px", height: "7px" }}
+                      />
+                      <span className="text-navy/60" style={{ fontSize: "14px" }}>
+                        Active platform
+                      </span>
+                    </div>
+                  </div>
+                </TiltCard>
+              </Reveal>
+            ))}
+          </div>
+          <p className="mt-12 italic text-navy/45" style={{ fontSize: "13px" }}>
+            Market list to be confirmed against Accelerent&apos;s current footprint.
+          </p>
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="bg-navy-deep py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <Reveal>
-            <h2 className="text-3xl font-semibold text-white md:text-4xl">
-              Bringing Accelerent to a new market?
+            <h2 className="font-display text-paper" style={{ fontSize: "clamp(28px,3.4vw,44px)", lineHeight: 1.1 }}>
+              Is your industry segment still open in your market?
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-              We expand deliberately, one segment at a time. If your industry
-              seat is still open in your market, let's talk.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-10 inline-block rounded-full bg-gold px-8 py-4 font-semibold text-navy transition-transform hover:scale-105"
-            >
-              Check availability
-            </Link>
+            <div className="mt-10">
+              <Link href="/contact" className="btn-gold">
+                Check Availability
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
