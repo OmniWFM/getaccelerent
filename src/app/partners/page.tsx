@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import BoardTableScene from "@/components/art/BoardTableScene";
 
 export const metadata: Metadata = {
   title: "Partners",
@@ -24,22 +25,31 @@ export default function Partners() {
       />
 
       <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <Reveal>
-            <p className="text-xl leading-relaxed text-navy/80">
-              Although most of our Partners are middle-market companies, they
-              represent both public and private organizations across a wide range
-              of industries — from insurance, banking, and construction to
-              marketing, technology, and real estate.
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-navy/70">
-              At maturity, each market includes one exclusive partner across
-              50–60 distinct industry segments. This breadth ensures that nearly
-              every relevant industry is represented, giving our Partners
-              consistent access to meaningful relationships and a steady flow of
-              new business opportunities.
-            </p>
-          </Reveal>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-16 md:grid-cols-2 md:items-center">
+            <Reveal>
+              <div>
+                <p className="text-xl leading-relaxed text-navy/80">
+                  Although most of our Partners are middle-market companies, they
+                  represent both public and private organizations across a wide range
+                  of industries — from insurance, banking, and construction to
+                  marketing, technology, and real estate.
+                </p>
+                <p className="mt-6 text-lg leading-relaxed text-navy/70">
+                  At maturity, each market includes one exclusive partner across
+                  50–60 distinct industry segments. This breadth ensures that nearly
+                  every relevant industry is represented, giving our Partners
+                  consistent access to meaningful relationships and a steady flow of
+                  new business opportunities.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
+                <BoardTableScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
