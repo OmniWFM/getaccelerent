@@ -6,7 +6,7 @@ export default function Counter({
   end,
   prefix = "",
   suffix = "",
-  duration = 1800,
+  duration = 1600,
 }: {
   end: number;
   prefix?: string;
@@ -20,22 +20,25 @@ export default function Counter({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const tick = (now: number) => {
-            const p = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            setValue(Math.floor(eased * end));
-            if (p < 1) requestAnimationFrame(tick);
-            else setValue(end);
-          };
-          requestAnimationFrame(tick);
-        }
-      });
-    }, { threshold: 0.4 });
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !started.current) {
+            started.current = true;
+            const start = performance.now();
+            const tick = (now: number) => {
+              const p = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              setValue(Math.floor(eased * end));
+              if (p < 1) requestAnimationFrame(tick);
+              else setValue(end);
+            };
+            requestAnimationFrame(tick);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, [end, duration]);
