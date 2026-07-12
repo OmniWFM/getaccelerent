@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
+import PartnershipScene from "@/components/art/PartnershipScene";
 
 export const metadata: Metadata = {
   title: "About",
@@ -20,22 +21,31 @@ export default function About() {
       />
 
       <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <Reveal>
-            <p className="text-2xl font-medium leading-relaxed text-navy">
-              Accelerent brings decision-makers and their sales teams together
-              with other decision-makers and <em>their</em> sales teams to build
-              new relationships.
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-navy/70">
-              Because so many companies and relationships are represented in a
-              given market, our partners can be assured that there is never a
-              shortage of connections to help them generate new business. Our
-              clients increase sales by partnering with each other — each one
-              holds connections to other valuable decision-makers. That's exactly
-              why we call our clients partners.
-            </p>
-          </Reveal>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-16 md:grid-cols-2 md:items-center">
+            <Reveal>
+              <div>
+                <p className="text-2xl font-medium leading-relaxed text-navy">
+                  Accelerent brings decision-makers and their sales teams together
+                  with other decision-makers and <em>their</em> sales teams to build
+                  new relationships.
+                </p>
+                <p className="mt-6 text-lg leading-relaxed text-navy/70">
+                  Because so many companies and relationships are represented in a
+                  given market, our partners can be assured that there is never a
+                  shortage of connections to help them generate new business. Our
+                  clients increase sales by partnering with each other — each one
+                  holds connections to other valuable decision-makers. That&apos;s exactly
+                  why we call our clients partners.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
+                <PartnershipScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
