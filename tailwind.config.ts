@@ -7,26 +7,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        paper: "#F6F4EF",
+        band: "#EEEBE2",
         navy: {
-          DEFAULT: "#0d1b3e",
-          light: "#16265a",
-          dark: "#08122b",
+          DEFAULT: "#0D1528",
+          footer: "#0A1122",
+          cta: "#131C31",
         },
+        ink: "#131C31",
+        body: "#38415A",
+        muted: "#5C6577",
         gold: {
-          DEFAULT: "#c9a24b",
-          light: "#e0c079",
-          dark: "#a8853a",
+          DEFAULT: "#C9A24B",
+          light: "#E0C079",
+          dark: "#A8853A",
         },
-        ink: "#0a0f1f",
-        paper: "#f7f5f0",
+        indigo: {
+          brand: "#3D4982",
+        },
       },
       fontFamily: {
-        serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
-        sans: ["system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+        display: ["var(--font-cormorant)", "Georgia", "serif"],
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+      },
+      borderColor: {
+        hair: "rgba(19,28,49,.1)",
       },
       keyframes: {
         fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "0%": { opacity: "0", transform: "translateY(30px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         fadeIn: {
@@ -35,7 +44,7 @@ const config: Config = {
         },
       },
       animation: {
-        fadeUp: "fadeUp 0.8s ease-out forwards",
+        fadeUp: "fadeUp 0.9s cubic-bezier(.2,.7,.2,1) forwards",
         fadeIn: "fadeIn 1.2s ease-out forwards",
       },
     },
