@@ -3,6 +3,9 @@ import Reveal from "@/components/Reveal";
 import Counter from "@/components/Counter";
 import NetworkHero from "@/components/NetworkHero";
 import TiltCard from "@/components/TiltCard";
+import BoardroomScene from "@/components/art/BoardroomScene";
+import PartnershipScene from "@/components/art/PartnershipScene";
+import BoardTableScene from "@/components/art/BoardTableScene";
 
 const INDUSTRIES = [
   "Insurance",
@@ -22,8 +25,12 @@ const INDUSTRIES = [
 export default function Home() {
   return (
     <>
-      {/* HERO — interactive 3D node network */}
+      {/* HERO — interactive 3D node network over a committed boardroom scene */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-navy hero-grain">
+        {/* committed SVG boardroom scene as the base layer (never expires) */}
+        <div className="pointer-events-none absolute inset-0 opacity-40">
+          <BoardroomScene className="h-full w-full" />
+        </div>
         {/* rotating conic aura */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full aura opacity-60" />
         {/* the 3D canvas */}
@@ -106,7 +113,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MODEL */}
+      {/* MODEL — with committed partnership scene */}
       <section className="scene bg-white py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-16 md:grid-cols-2 md:items-center">
@@ -134,6 +141,14 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={150}>
+              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
+                <PartnershipScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="mt-20 grid gap-16 md:grid-cols-2 md:items-center">
+            <Reveal className="md:order-2">
               <div className="grid gap-4">
                 {[
                   { t: "No competition", d: "One company from each industry — you own your category." },
@@ -152,6 +167,11 @@ export default function Home() {
                     </p>
                   </TiltCard>
                 ))}
+              </div>
+            </Reveal>
+            <Reveal delay={150} className="md:order-1">
+              <div className="overflow-hidden rounded-3xl border border-navy/10 shadow-xl shadow-navy/10">
+                <BoardTableScene className="aspect-[4/3] w-full transition-transform duration-700 hover:scale-105" />
               </div>
             </Reveal>
           </div>
