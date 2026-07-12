@@ -3,22 +3,19 @@
 import { useEffect, useRef } from "react";
 
 type Node = {
-  x: number;
-  y: number;
-  z: number;
-  // base positions on a sphere shell
   bx: number;
   by: number;
   bz: number;
-  pulse: number;
+  big: boolean;
+  r: number;
 };
 
 /**
- * Interactive 3D node network rendered on a 2D canvas with hand-rolled
- * perspective projection — no external libraries, so it can never break the build.
- * Nodes sit on a rotating sphere shell, connect to nearby neighbours, and the
- * whole cloud tilts toward the pointer. Represents Accelerent's exclusive
- * partner network: decision-makers connected across a market.
+ * Interactive 3D node network on a 2D canvas with hand-rolled perspective
+ * projection — no external libraries. ~90 nodes sit on a rotating sphere
+ * (with radius jitter), connected by thin gold lines when close in 2D.
+ * 18% of nodes are larger and gold; the rest are off-white. Pointer position
+ * eases the scene rotation. Respects prefers-reduced-motion (static frame).
  */
 export default function NetworkHero() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -36,16 +33,18 @@ export default function NetworkHero() {
 
     const NODE_COUNT = 90;
     const RADIUS = 260;
+    const FOV = 620;
     const nodes: Node[] = [];
 
-    // Distribute points on a sphere (Fibonacci sphere)
     for (let i = 0; i < NODE_COUNT; i++) {
       const phi = Math.acos(1 - (2 * (i + 0.5)) / NODE_COUNT);
       const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-      const x = Math.sin(phi) * Math.cos(theta) * RADIUS;
-      const y = Math.sin(phi) * Math.sin(theta) * RADIUS;
-      const z = Math.cos(phi) * RADIUS;
-      nodes.push({ x, y, z, bx: x, by: y, bz: z, pulse: Math.random() * Math.PI * 2 });
+      const jitter = RADIUS * (0.9 + Math.random() * 0.2);
+      const x = Math.sin(phi) * Math.cos(theta) * jitter;
+      const y = Math.sin(phi) * Math.sin(theta) * jitter;
+      const z = Math.cos(phi) * jitter;
+      const big = Math.random() < 0.18;
+      nodes.push({ bx: x, by: y, bz: z, big, r: big ? 2.8 : 1.6 });
     }
 
     const resize = () => {
@@ -72,49 +71,43 @@ export default function NetworkHero() {
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerout", onLeave);
 
-    let rotX = -0.3;
-    let rotY = 0;
-    let raf = 0;
-    let t = 0;
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    const render = () => {
-      t += 0.01;
-      // ease rotation toward pointer, plus constant drift
+    let rotX = -0.3;
+    let rotY = 0;
+    let raf = 0;
+
+    const draw = () => {
       const targetY = pointer.current.active ? pointer.current.x * 0.9 : 0;
-      const targetX = pointer.current.active ? -0.3 + pointer.current.y * 0.6 : -0.3;
-      rotY += ((targetY - rotY) * 0.05) + (prefersReduced ? 0 : 0.0025);
-      rotX += (targetX - rotX) * 0.05;
+      const targetX = pointer.current.active
+        ? -0.3 + pointer.current.y * 0.6
+        : -0.3;
+      if (!prefersReduced) {
+        rotY += (targetY - rotY) * 0.05 + 0.0025;
+        rotX += (targetX - rotX) * 0.05;
+      }
 
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
       const cosX = Math.cos(rotX);
       const sinX = Math.sin(rotX);
-
       const cx = width / 2;
       const cy = height / 2;
-      const focal = 620;
 
       const projected = nodes.map((n) => {
-        // rotate Y then X
         let x = n.bx * cosY - n.bz * sinY;
         let z = n.bx * sinY + n.bz * cosY;
-        let y = n.by * cosX - z * sinX;
+        const y = n.by * cosX - z * sinX;
         z = n.by * sinX + z * cosX;
-        const scale = focal / (focal + z + RADIUS);
-        return {
-          sx: cx + x * scale,
-          sy: cy + y * scale,
-          scale,
-          z,
-        };
+        const scale = FOV / (FOV + z + RADIUS);
+        return { sx: cx + x * scale, sy: cy + y * scale, scale, node: n };
       });
 
       ctx.clearRect(0, 0, width, height);
 
-      // connections
+      // connection lines
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
           const a = projected[i];
@@ -122,9 +115,9 @@ export default function NetworkHero() {
           const dx = a.sx - b.sx;
           const dy = a.sy - b.sy;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
+          if (dist < 110) {
             const depth = (a.scale + b.scale) / 2;
-            const alpha = (1 - dist / 120) * 0.28 * depth;
+            const alpha = (1 - dist / 110) * 0.3 * depth;
             ctx.strokeStyle = `rgba(201, 162, 75, ${alpha})`;
             ctx.lineWidth = 0.6 * depth;
             ctx.beginPath();
@@ -136,28 +129,21 @@ export default function NetworkHero() {
       }
 
       // nodes
-      for (let i = 0; i < projected.length; i++) {
-        const p = projected[i];
-        const n = nodes[i];
-        const pulse = prefersReduced ? 1 : 0.7 + Math.sin(t * 2 + n.pulse) * 0.3;
-        const r = 2.2 * p.scale * pulse;
-        const glow = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 5);
-        glow.addColorStop(0, `rgba(224, 192, 121, ${0.9 * p.scale})`);
-        glow.addColorStop(1, "rgba(224, 192, 121, 0)");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(p.sx, p.sy, r * 5, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = `rgba(255, 246, 224, ${Math.min(1, p.scale)})`;
+      for (const p of projected) {
+        const r = p.node.r * p.scale;
+        if (p.node.big) {
+          ctx.fillStyle = `rgba(201, 162, 75, ${Math.min(1, p.scale)})`;
+        } else {
+          ctx.fillStyle = `rgba(246, 244, 239, ${Math.min(0.85, p.scale * 0.85)})`;
+        }
         ctx.beginPath();
         ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      raf = requestAnimationFrame(render);
+      if (!prefersReduced) raf = requestAnimationFrame(draw);
     };
-    render();
+    draw();
 
     return () => {
       cancelAnimationFrame(raf);
